@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewData["Title"] = "Category Information";
+}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f4f4f4;
+        margin:100px;
+    }
+
+    h1, h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: 600;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    strong {
+        font-weight: 600;
+        color: #007bff;
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+</style>
+
+<h1>Category Information</h1>
+
+<p>Use this page to understand which category best fits your transactions.</p>
+<p class="fw-bolder text-info"><mark><b>If none of the categories below fit your transaction, you can type your own custom category directly into the category field.</b></mark></p>
+
+<h2>Expense Categories</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Housing</strong></td>
+            <td>Covers rent, mortgage payments, utilities (electricity, water, gas), and home-related expenses.</td>
+        </tr>
+        <tr>
+            <td><strong>Transportation</strong></td>
+            <td>Includes car payments, fuel, public transport fares, and vehicle maintenance.</td>
+        </tr>
+        <tr>
+            <td><strong>Food</strong></td>
+            <td>Expenses for groceries, dining out, and food delivery.</td>
+        </tr>
+        <tr>
+            <td><strong>Personal</strong></td>
+            <td>Spending on clothing, entertainment, hobbies, and personal care.</td>
+        </tr>
+        <tr>
+            <td><strong>Health</strong></td>
+            <td>Medical bills, insurance premiums, and prescription costs.</td>
+        </tr>
+        <tr>
+            <td><strong>Education</strong></td>
+            <td>Expenses related to tuition, books, and educational supplies.</td>
+        </tr>
+        <tr>
+            <td><strong>Debt</strong></td>
+            <td>Payments for credit cards, loans, and other forms of debt.</td>
+        </tr>
+        <tr>
+            <td><strong>Savings</strong></td>
+            <td>Money set aside for future goals or emergencies.</td>
+        </tr>
+        <tr>
+            <td><strong>Gifts</strong></td>
+            <td>Spending on presents and charitable donations.</td>
+        </tr>
+        <tr>
+            <td><strong>Other</strong></td>
+            <td>Miscellaneous expenses that don't fit into other categories.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Income Categories</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Salary</strong></td>
+            <td>Regular income from your job or employment.</td>
+        </tr>
+        <tr>
+            <td><strong>Business</strong></td>
+            <td>Income from self-employment, freelance work, or rental properties.</td>
+        </tr>
+        <tr>
+            <td><strong>Investments</strong></td>
+            <td>Earnings from dividends, interest, and capital gains.</td>
+        </tr>
+        <tr>
+            <td><strong>Extra Income</strong></td>
+            <td>Any additional income from gifts, refunds, or other sources.</td>
+        </tr>
+    </tbody>
+</table>
+

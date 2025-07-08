@@ -1,0 +1,102 @@
+﻿@model PersonalFinanceTracker.UI.Models.TransactionResponseDto
+
+@{
+    ViewData["Title"] = "Update Transaction";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="~/css/EditTransaction.css" />
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var successMessage = "@TempData["SuccessMessage"]";
+        var errorMessage = "@TempData["ErrorMessage"]";
+
+        if (successMessage) {
+            Swal.fire({
+                icon: "success",
+                title: "Updated!",
+                text: successMessage,
+                confirmButtonColor: "#28a745"
+            }).then(() => {
+                window.location.href = '@Url.Action("GetAllTransactions", "Transaction")';
+            });
+        }
+
+        if (errorMessage) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: errorMessage,
+                confirmButtonColor: "#d33"
+            });
+        }
+    });
+</script>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="transaction-box">
+        <h2 class="text-center mb-3">
+            <span class="badge text-primary fs-5 px-4 py-2 rounded-pill shadow-sm">Edit Transaction</span>
+        </h2>
+        <p class="form-description text-center">Edit the details of your transaction.</p>
+        <hr />
+
+        <form asp-action="EditTransaction" method="post" id="editTransaction">
+            
+            <input type="hidden" asp-for="Transaction_Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Date" class="form-control" placeholder="Date" required />
+                <label asp-for="Date">Date</label>
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Amount" class="form-control" placeholder="Transaction Amount" required />
+                <label asp-for="Amount">Transaction Amount</label>
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Description" class="form-control" placeholder="Description" required />
+                <label asp-for="Description">Description</label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <select asp-for="TransactionType" class="form-select" required aria-label="Select Transaction Type">
+                    <option value="">Select Type</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+                <label asp-for="TransactionType">Transaction Type</label>
+                <span asp-validation-for="TransactionType" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 position-relative">
+                <div class="form-floating category-input-container">
+                    <input asp-for="CategoryName" id="categoryInput" class="form-control" autocomplete="off" placeholder="Category" required />
+                    <label for="categoryInput">Category</label>
+                    <span class="category-info-toggle">
+                        <a href="@Url.Action("CategoryInfo", "Category")" target="_blank" data-toggle="tooltip" data-placement="top" title="Category Information">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </span>
+                </div>
+                <ul id="suggestions" class="list-group"></ul>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-warning w-100 add-btn" type="submit">Update</button>
+                <p class="mt-3 text-center">
+                    <a href="@Url.Action("GetAllTransactions", "Transaction")" class="back-link text-decoration-none">Back to List</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/categorySearch.js"></script>

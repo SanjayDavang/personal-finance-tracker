@@ -1,0 +1,74 @@
+﻿body {
+    background: #F4F7FC;
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-box {
+    width: 350px;
+    padding: 20px;
+    background: var(--background-color);
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    .register-box h2 {
+        color: #333;
+        font-weight: 600;
+    }
+
+.form-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.form-control {
+     border: 1px solid #DDD;
+    border-radius: 15px;
+    padding: 12px;
+    width: 100%;
+}
+
+    .form-control::placeholder {
+        color: #888;
+    }
+
+/* Button */
+.btn {
+    border: none;
+    padding: 12px;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+    .btn:hover {
+        background: var(--hover-color);
+    }
+
+/* Password Toggle */
+.password-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
+
+/* Links */
+a {
+    color: #007BFF;
+    font-weight: 500;
+    text-decoration:none;
+}
+
+    a:hover {
+        color: var(--hover-color);
+    }

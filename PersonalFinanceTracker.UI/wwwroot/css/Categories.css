@@ -1,0 +1,87 @@
+﻿
+/* General Styles */
+body {
+    background: #F4F7FC;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.table-container {
+    max-height: auto; /* Adjust height based on need */
+    margin-bottom: auto;
+}
+
+.title {
+    text-align: start;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 20px;
+    background-color: #4800ffb2;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+#categories{
+    padding: 10px;
+    outline: 1px solid black;
+    border-radius : 10px;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.edit-btn {
+    background: #0094ff;
+    color: white;
+}
+
+.delete-btn {
+    background: #ff0000;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+/* Responsive Table */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        background: white;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    td {
+        text-align: left;
+        position: relative;
+        padding-left: 50%;
+        display: block;
+    }
+
+        td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+}

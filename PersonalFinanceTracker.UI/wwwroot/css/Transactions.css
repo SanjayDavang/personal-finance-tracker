@@ -1,0 +1,56 @@
+﻿body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.table-container {
+    max-height: auto; /* Adjust height based on need */
+    margin-bottom: auto;
+}
+
+.title {
+    text-align: start;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 20px;
+    background-color: #4800ffb2;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+#transactions {
+    padding: 10px;
+    outline: 1px solid black;
+    border-radius: 10px;
+}
+
+.transaction-module{
+    padding:10px;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.edit-btn {
+    background: #0094ff;
+    color: white;
+}
+
+.delete-btn {
+    background: #ff0000;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+

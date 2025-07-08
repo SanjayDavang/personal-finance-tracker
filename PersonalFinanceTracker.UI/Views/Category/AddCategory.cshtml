@@ -1,0 +1,95 @@
+﻿@model PersonalFinanceTracker.UI.Models.CategoryBudgetResponseDto
+
+@{
+    ViewData["Title"] = "Add Category and Budget";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="~/css/AddCategory.css" />
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var successMessage = "@TempData["SuccessMessage"]";
+        var errorMessage = "@TempData["ErrorMessage"]";
+
+        if (successMessage) {
+            Swal.fire({
+                icon: "success",
+                title: "Updated!",
+                text: successMessage,
+                confirmButtonColor: "#28a745"
+            }).then(() => {
+                window.location.href = '@Url.Action("GetAllCategories", "Category")';
+            });
+        }
+
+        if (errorMessage) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: errorMessage,
+                confirmButtonColor: "#d33"
+            });
+        }
+    });
+</script>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="transaction-box">
+        <h2 class="text-center">Add Category</h2>
+        <p class="form-description text-center">Add category and its budget.</p>
+        <hr />
+
+        <form asp-action="AddCategory" asp-controller="Category" method="post" id="addCategory">
+            <input type="hidden" asp-for="Category_Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Name" class="form-control" placeholder="Category Name" required />
+                <label asp-for="Name">Category Name</label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <select asp-for="Type" class="form-select" required aria-label="Select Category Type">
+                    <option value="">Select Type</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+                <label asp-for="Type">Category Type</label>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3 position-relative">
+                <input asp-for="Amount" class="form-control" placeholder="Budget Amount" required />
+                <label asp-for="Amount">Budget Amount</label>
+                <span asp-validation-for="Amount" class="text-danger"></span>
+
+                <span class="position-absolute top-50 end-0 translate-middle-y me-3">
+                    <i class="fas fa-info-circle text-primary" title="Set budget amount for this category"></i>
+                </span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="StartDate" type="date" class="form-control" placeholder="Start Date" required />
+                <label asp-for="StartDate">Start Date</label>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="EndDate" type="date" class="form-control" placeholder="End Date" required />
+                <label asp-for="EndDate">End Date</label>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-warning w-100 add-btn" type="submit">Add</button>
+                <p class="mt-3 text-center">
+                    <a href="@Url.Action("GetAllCategories", "Category")" class="back-link text-decoration-none">Back to List</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

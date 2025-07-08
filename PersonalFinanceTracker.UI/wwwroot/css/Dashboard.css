@@ -1,0 +1,121 @@
+﻿body {
+    background-color: white;
+}
+
+/* Center the dashboard title */
+h2.text-center {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.blink-btn {
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0% {
+        background-color: #007bff;
+    }
+
+    50% {
+        background-color: #0056b3;
+    }
+
+    100% {
+        background-color: #007bff;
+    }
+}
+
+#categoryChart {
+    width: 100%;
+    height: 600px;
+}
+
+.table-container {
+    max-height: auto;
+    margin-bottom: auto;
+    font-size: 20px;
+    line-height: 50px;
+    margin-top: 5%;
+}
+
+.table td{
+    padding:10px;
+}
+
+.table td.description-col {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.title {
+    text-align: start;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 20px;
+    background-color: #4800ffb2;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+#transactions {
+    padding:10px;
+    outline: 1px solid black;
+    border-radius: 10px;
+}
+    /* Form Styling */
+    form {
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* Filter Dropdown */
+    select.form-control {
+        cursor: pointer;
+    }
+
+    #filterDropdown {
+        border-radius: 15px;
+    }
+    /* Date Input Fields */
+    .custom-date input {
+        width: 100%;
+        border-radius: 15px;
+    }
+    /* Button Styling */
+    .btn-primary {
+        width: 100%;
+        font-weight: bold;
+        border-radius: 15px;
+    }
+    /* Card Styling */
+    .card {
+        border-radius: 15px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .card-body h3 {
+        font-size: 1.8rem;
+        margin-top: 10px;
+    }
+    /* Responsive Styling */
+    @media (max-width: 768px) {
+        .col-md-6 {
+        margin-bottom: 20px;
+    }
+}

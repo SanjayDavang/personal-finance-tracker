@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+    Layout = null;
+}
+<div class="container">
+<div class="error-container">
+    <h1 class="error-code">403</h1>
+    <h2 class="error-message">Oops! Access Denied</h2>
+    <p class="error-description">You must be logged in to access this page.</p>
+
+    <a href="/Account/Login" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> Login
+    </a>
+</div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(to right, #ff758c, #ff7eb3);
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        overflow:hidden;
+    }
+
+    .container {
+        height: 100%; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Prevents scrolling */
+        padding: 0; /* Removes unwanted spacing */
+    }
+
+    .error-container {
+        text-align: center;
+        background: white;
+        border-radius: 12px;
+        padding:40px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+    }
+
+    .error-code {
+        font-size: 100px;
+        font-weight: bold;
+        color: #ff4d6d;
+    }
+
+    .error-message {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .error-description {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .login-btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #ff4d6d;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 6px;
+        transition: 0.3s ease-in-out;
+    }
+
+        .login-btn:hover {
+            background: #e63950;
+        }
+
+        .login-btn i {
+            margin-right: 8px;
+        }
+</style>

@@ -1,0 +1,118 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --text-color: #343a40;
+    --navbar-bg: #ffffff;
+    --sidebar-bg: #f0f0f0; /* Slightly darker sidebar */
+    --border-color: #dee2e6;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --hover-bg: #e9ecef;
+    --active-bg: #d1d3d5;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    color: var(--text-color);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+    .sidebar h2 {
+        margin-bottom: 30px;
+        font-weight: 600;
+        font-size: 1.8rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+    }
+
+    .sidebar a {
+        color: var(--text-color);
+        text-decoration: none;
+        display: block;
+        padding: 12px; /* Slightly more padding */
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+    }
+
+        .sidebar a:hover {
+            background-color: var(--hover-bg);
+            transform: translateX(5px); /* Subtle hover animation */
+        }
+
+.content {
+    margin-left: 260px;
+    padding: 30px; /* More padding */
+}
+
+.navbar {
+    background-color: var(--navbar-bg);
+    box-shadow: var(--box-shadow);
+    padding: 20px; /* More padding */
+    margin-bottom: 30px; /* More margin */
+    border-radius: 8px;
+}
+
+.container {
+    background-color: white;
+    padding: 30px; /* More padding */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: var(--box-shadow);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px; /* More padding */
+    border-radius: 8px; /* More rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+}
+
+    .btn-primary:hover {
+        background-color: #0069d9;
+        transform: translateY(-2px); /* Subtle hover animation */
+    }
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px; /* More padding */
+    border-radius: 8px; /* More rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        transform: translateY(-2px); /* Subtle hover animation */
+    }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        z-index: 1000;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
