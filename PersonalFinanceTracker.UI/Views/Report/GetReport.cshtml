@@ -1,0 +1,91 @@
+﻿
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="~/css/Report.css" />
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="report-box">
+        <h2 class="text-center">Report</h2>
+        <p class="form-description text-center">Generate a detailed record of your income and expenses.</p>
+        <hr />
+
+        <form asp-action="GetReport" asp-controller="Report" method="post">
+            <div class="form-floating mb-3">
+                <select id="reportType" name="reportType" class="form-select" required>
+                    <option value="" selected disabled>Select Report Type</option>
+                    <option value="month">Month</option>
+                    <option value="year">Year</option>
+                    <option value="custom">Custom Date</option>
+                </select>
+                <label for="reportType">Report Type</label>
+            </div>
+
+            <!-- Month Dropdown -->
+            <div class="form-floating mb-3 d-none" id="monthDiv">
+                <select id="month" name="month" class="form-select">
+                    <option value="" selected disabled>Select Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <label for="month">Select Month</label>
+            </div>
+
+            <!-- Year Input -->
+            <div class="form-floating mb-3 d-none" id="yearDiv">
+                <input type="number" id="year" name="year" class="form-control" placeholder="Year" min="2000" max="2100">
+                <label for="year">Enter Year</label>
+            </div>
+
+            <!-- Custom Date Range -->
+            <div class="form-floating mb-3 d-none" id="fromDateDiv">
+                <input type="date" id="fromDate" name="fromDate" class="form-control" placeholder="From Date">
+                <label for="fromDate">From</label>
+            </div>
+
+            <div class="form-floating mb-3 d-none" id="toDateDiv">
+                <input type="date" id="toDate" name="toDate" class="form-control" placeholder="To Date">
+                <label for="toDate">To</label>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary w-100 generate-btn" type="submit">Export</button>
+                @* <p class="mt-3 text-center">
+                    <a href="@Url.Action("GetReport", "Report") class="back-link text-decoration-none">Back to List</a>
+                </p> *@
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const reportType = document.getElementById('reportType');
+    const monthDiv = document.getElementById('monthDiv');
+    const yearDiv = document.getElementById('yearDiv');
+    const fromDateDiv = document.getElementById('fromDateDiv');
+    const toDateDiv = document.getElementById('toDateDiv');
+
+    reportType.addEventListener('change', () => {
+        // Hide all
+        monthDiv.classList.add('d-none');
+        yearDiv.classList.add('d-none');
+        fromDateDiv.classList.add('d-none');
+        toDateDiv.classList.add('d-none');
+
+        if (reportType.value === 'month') {
+            monthDiv.classList.remove('d-none');
+        } else if (reportType.value === 'year') {
+            yearDiv.classList.remove('d-none');
+        } else if (reportType.value === 'custom') {
+            fromDateDiv.classList.remove('d-none');
+            toDateDiv.classList.remove('d-none');
+        }
+    });
+</script>

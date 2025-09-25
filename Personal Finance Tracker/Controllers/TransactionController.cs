@@ -54,21 +54,21 @@ namespace Personal_Finance_Tracker.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("DeleteTransaction")]
-        [Authorize]
-        public async Task<IActionResult> DeleteTransaction(int transactionId)
-        {
-            try
-            {
-                var response = await _transactionService.DeleteTransactionAsync(transactionId);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
+        //[HttpDelete]
+        //[Route("DeleteTransaction")]
+        //[Authorize]
+        //public async Task<IActionResult> DeleteTransaction(int transactionId)
+        //{
+        //    try
+        //    {
+        //        var response = await _transactionService.DeleteTransactionAsync(transactionId);
+        //        return Ok(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
+        //}
 
         [HttpGet]
         [Route("GetTransactionById")]
@@ -94,6 +94,25 @@ namespace Personal_Finance_Tracker.Controllers
             try
             {
                 var response = await _transactionService.UpdateTransactionAsync(transactionResponseDto, userName);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        [Route("DeleteTransactions")]
+        [Authorize]
+        public async Task<IActionResult> DeleteTransactions([FromQuery] List<int> transactionIds)
+        {
+            if (transactionIds == null || !transactionIds.Any())
+                return BadRequest("No transaction IDs provided.");
+
+            try
+            {
+                var response = await _transactionService.DeleteTransactionsAsync(transactionIds);
                 return Ok(response);
             }
             catch (Exception ex)

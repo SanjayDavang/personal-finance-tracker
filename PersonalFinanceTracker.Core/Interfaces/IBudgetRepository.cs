@@ -13,7 +13,7 @@ namespace PersonalFinanceTracker.Core.Interfaces
         Task<bool> AddDefaultBudgetsAsync(int userId, List<int> categoryIds);
         Task<bool> AddBudgetAsync(Budget budget);
         Task<List<BudgetResponseDto>> GetAllBudgetsAsync(int userId);
-        Task CreateMonthlyBudgetsAsync(int userId);
+        Task UpdateMonthlyBudgetsAsync(int userId);
         Task<Budget> GetBudgetAsync(int CategoryId);
         Task<bool> UpdateBudgetAsync(Budget budget);
     }

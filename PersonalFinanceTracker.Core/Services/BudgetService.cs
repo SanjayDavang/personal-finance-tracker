@@ -40,9 +40,9 @@ namespace PersonalFinanceTracker.Core.Services
             return await _budgetRepository.GetAllBudgetsAsync(userId);
         }
 
-        public async Task CreateNewMonthBudgetsAsync(int userId)
+        public async Task UpdateBudgetsForNewMonthAsync(int userId)
         {
-            await _budgetRepository.CreateMonthlyBudgetsAsync(userId);
+            await _budgetRepository.UpdateMonthlyBudgetsAsync(userId);
         }
 
         public async Task<Budget> GetBudgetAsync(int categoryId)

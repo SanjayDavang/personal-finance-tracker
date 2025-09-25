@@ -153,8 +153,29 @@ namespace PersonalFinanceTracker.UI.Controllers
             return RedirectToAction("GetAllTransactions");
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> DeleteTransaction(int id)
+        //{
+        //    var token = HttpContext.Session.GetString("JWToken");
+        //    if (string.IsNullOrEmpty(token))
+        //    {
+        //        return RedirectToAction("AccessDenied", "Account");
+        //    }
+        //    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        //    var response = await _httpClient.DeleteAsync($"{_apiBaseUrl}/Transaction/DeleteTransaction?transactionId={id}");
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        TempData["SuccessMessage"] = "Deleted transaction successfully.";
+        //        return RedirectToAction("GetAllTransactions");
+        //    }
+        //    TempData["ErrorMessage"] = "Failed to Delete transaction.";
+        //    return RedirectToAction("GetAllTransactions");
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> DeleteTransaction(int id)
+        public async Task<IActionResult> DeleteSelected(string ids)
         {
             var token = HttpContext.Session.GetString("JWToken");
             if (string.IsNullOrEmpty(token))
@@ -163,14 +184,20 @@ namespace PersonalFinanceTracker.UI.Controllers
             }
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = await _httpClient.DeleteAsync($"{_apiBaseUrl}/Transaction/DeleteTransaction?transactionId={id}");
+            var idList = ids.Split(',').Select(int.Parse).ToList();
+            var queryString = string.Join("&", idList.Select(id => $"TransactionIds={id}"));
+
+            var response = await _httpClient.DeleteAsync($"{_apiBaseUrl}/Transaction/DeleteTransactions?{queryString}");
 
             if (response.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Deleted transaction successfully.";
-                return RedirectToAction("GetAllTransactions");
+                TempData["SuccessMessage"] = "Selected transactions deleted successfully.";
             }
-            TempData["ErrorMessage"] = "Failed to Delete transaction.";
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete selected transactions.";
+            }
+
             return RedirectToAction("GetAllTransactions");
         }
     }

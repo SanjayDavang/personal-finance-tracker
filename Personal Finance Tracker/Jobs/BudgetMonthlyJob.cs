@@ -28,7 +28,7 @@ namespace Personal_Finance_Tracker.Jobs
                         var users = await userRepository.GetAllUsersAsync();
                         foreach (var user in users)
                         {
-                            await budgetService.CreateNewMonthBudgetsAsync(user.User_Id);
+                            await budgetService.UpdateBudgetsForNewMonthAsync(user.User_Id);
                         }
                     }
                 }

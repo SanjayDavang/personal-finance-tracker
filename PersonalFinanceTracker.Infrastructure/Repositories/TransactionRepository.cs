@@ -50,10 +50,25 @@ namespace PersonalFinanceTracker.Infrastructure.Repositories
             return await _context.Transactions.FindAsync(trasactionId);
         }
 
-        public async Task DeleteAsync(Transaction transaction)
+        //public async Task DeleteAsync(Transaction transaction)
+        //{
+        //    _context.Transactions.Remove(transaction);
+        //    await _context.SaveChangesAsync();
+        //}
+
+        public async Task<bool> DeleteTransactionsAsync(List<int> transactionIds)
         {
-            _context.Transactions.Remove(transaction);
-            await _context.SaveChangesAsync();
+            var transactions = await _context.Transactions
+                .Where(t => transactionIds.Contains(t.Transaction_Id))
+                .ToListAsync();
+
+            if (transactions.Any())
+            {
+                _context.Transactions.RemoveRange(transactions);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> UpdateTransactionAsync(Transaction transaction)
@@ -61,6 +76,13 @@ namespace PersonalFinanceTracker.Infrastructure.Repositories
             _context.Transactions.Update(transaction);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Transaction>> GetTransactionsByDateRange(DateTime startDate, DateTime endDate, int userId)
+        {
+            return await _context.Transactions
+                .Where(t => t.Date >= startDate && t.Date <= endDate && t.User_Id == userId)
+                .ToListAsync();
         }
     }
 }

@@ -60,35 +60,27 @@ namespace PersonalFinanceTracker.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task CreateMonthlyBudgetsAsync(int userId)
+        public async Task UpdateMonthlyBudgetsAsync(int userId)
         {
             var today = DateTime.UtcNow;
             var monthStart = new DateOnly(today.Year, today.Month, 1);
             var monthEnd = new DateOnly(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
 
             var existingBudgets = await _context.Budgets
-                .Where(b => b.User_Id == userId && b.StartDate == monthStart)
+                .Where(b => b.User_Id == userId)
                 .ToListAsync();
 
-            if (existingBudgets.Any())
+            if (!existingBudgets.Any())
             {
                 return; 
             }
 
-            var categories = await _context.Categories
-                .Where(c => c.User_Id == userId)
-                .ToListAsync();
-
-            var newBudgets = categories.Select(category => new Budget
+            foreach (var budget in existingBudgets)
             {
-                User_Id = userId,
-                Category_Id = category.Category_Id,
-                StartDate = monthStart,
-                EndDate = monthEnd,
-                Amount = 0  
-            }).ToList();
-
-            await _context.Budgets.AddRangeAsync(newBudgets);
+                budget.StartDate = monthStart;
+                budget.EndDate = monthEnd;
+            }
+            
             await _context.SaveChangesAsync();
         }
 

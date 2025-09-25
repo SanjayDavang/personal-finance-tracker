@@ -12,7 +12,9 @@
 <div class="container transaction-module">
 
     <h2 class="title">Transactions</h2>
-    <a asp-action="AddTransaction" class="btn btn-primary text-decoration-none fw-bold mb-2">+ Add Transaction</a>
+    <a asp-action="AddTransaction" class="btn btn-primary text-decoration-none fw-bold mb-2"><i class="fa-solid fa-plus"></i></a>
+    <a id="selectAll" class="btn btn-danger text-decoration-none fw-bold mb-2 ms-3" style="display:none;"><i class="fa-solid fa-check-double"></i></a>
+    <a id="deleteSelectedTop" class="btn btn-danger text-decoration-none fw-bold mb-2 ms-3" style="display:none;"><i class="fas fa-trash fa-bounce"></i></a>
     
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -48,27 +50,31 @@
             <table id="transactions" class="table table-hover table-responsive">
                 <thead>
                     <tr>
+                        <th>@* <input type="checkbox" id="selectAll"/> *@</th>
                         <th>Date</th>
                         <th>Amount</th>
                         <th>Description</th>
                         <th>Type</th>
                         <th>Category</th>
-                        <th>Actions</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var transaction in Model)
                     {
                         <tr>
+                            <td>
+                                <input type="checkbox" class="selectItem" value="@transaction.Transaction_Id" />
+                            </td>
                             <td data-label="Date">@transaction.Date.ToString("yyyy-MM-dd")</td>
                             @{
                                 if (@transaction.TransactionType == "Expense")
                                 {
-                                    <td class="text-danger">-@transaction.Amount.ToString("C")</td>
+                                                        <td class="text-danger">-@transaction.Amount.ToString("C")</td>
                                 }
                                 else
                                 {
-                                    <td class="text-success">+@transaction.Amount.ToString("C")</td>
+                                                        <td class="text-success">+@transaction.Amount.ToString("C")</td>
                                 }
                             }
                             <td data-label="Description">@transaction.Description</td>
@@ -79,14 +85,15 @@
                                 <a asp-action="EditTransaction" asp-route-id="@transaction.Transaction_Id" class="btn edit-btn">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a asp-action="DeleteTransaction" asp-route-id="@transaction.Transaction_Id" class="btn delete-btn" onclick="confirmDelete(event, this);">
+                                @* <a asp-action="DeleteTransaction" asp-route-id="@transaction.Transaction_Id" class="btn delete-btn" onclick="confirmDelete(event, this);">
                                     <i class="fas fa-trash"></i>
-                                </a>
+                                </a> *@
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <a id="deleteSelectedBottom" class="btn btn-danger text-decoration-none fw-bold mb-2 ms-3" style="display:none;"><i class="fas fa-trash fa-bounce"></i></a>
         </div>
         
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -95,28 +102,118 @@
 
         <script>
             $(document).ready(function () {
-                $('#transactions').DataTable({
-                });
-            });
+                var table = $('#transactions').DataTable();
+                var allSelected = false;
 
-            function confirmDelete(event, element) {
-                event.preventDefault(); // Prevent the default action
+                function toggleActionButtons() {
+                    var rows = table.$(".selectItem", { page: "current" });
+                    var selectedRows = table.$(".selectItem:checked", { page: "current" }).length;
+                    var totalRows = rows.length;
 
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "This transaction will be permanently deleted!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = element.href; // Proceed with the delete action
+                    var anyChecked = selectedRows > 0;
+                    $("#deleteSelectedTop, #deleteSelectedBottom, #selectAll").toggle(anyChecked);
+
+                    allSelected = (selectedRows === totalRows);
+
+                    $("#selectAll").html(allSelected
+                        ? '<i class="fa-solid fa-xmark"></i> Deselect All'
+                        : '<i class="fa-solid fa-check-double"></i> Select All');
+                }
+
+                // Row click
+                $('#transactions tbody').on('click', 'tr', function (e) {
+                    if (e.target.type !== 'checkbox' && !$(e.target).closest('a').length) {
+                        var checkbox = $(this).find('.selectItem');
+                        checkbox.prop('checked', !checkbox.prop('checked'));
+                        toggleActionButtons();
                     }
                 });
-            }
+
+                // Checkbox click
+                $('#transactions tbody').on('click', '.selectItem', function (e) {
+                    toggleActionButtons();
+                    e.stopPropagation();
+                });
+
+                // Select/Deselect current page
+                $("#selectAll").on("click", function () {
+                    var rows = table.$(".selectItem", { page: "current" });
+                    var total = rows.length;
+
+                    if (!allSelected) {
+                        rows.prop("checked", true);
+                        Swal.fire({
+                            icon: "info",
+                            title: "Page Transactions Selected",
+                            text: "You have selected " + total + " transactions on this page.",
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#3085d6"
+                        });
+                    } else {
+                        rows.prop("checked", false);
+                    }
+
+                    toggleActionButtons();
+                });
+
+                // Reset on page change
+                table.on('draw', function () {
+                    // Get all rows on current page
+                    var rows = table.$(".selectItem", { page: "current" });
+                    var selectedRows = table.$(".selectItem:checked", { page: "current" }).length;
+                    var totalRows = rows.length;
+
+                    if (selectedRows > 0) {
+                        $("#deleteSelectedTop, #deleteSelectedBottom, #selectAll").show();
+                    } else {
+                        $("#deleteSelectedTop, #deleteSelectedBottom, #selectAll").hide();
+                    }
+
+                    // Update selectAll button text based on current page selection
+                    if (selectedRows === totalRows && totalRows > 0) {
+                        $("#selectAll").html('<i class="fa-solid fa-xmark"></i> Deselect Page');
+                        allSelected = true;
+                    } else {
+                        $("#selectAll").html('<i class="fa-solid fa-check-double"></i> Select Page');
+                        allSelected = false;
+                    }
+                });
+
+                // Delete Selected button click
+                $("#deleteSelectedTop, #deleteSelectedBottom").on("click", function () {
+                    // ✅ Collect all selected checkboxes across all pages
+                    var selectedIds = table.$(".selectItem:checked", { page: "all" })
+                        .map(function () {
+                            return $(this).val();
+                        }).get();
+
+                    if (selectedIds.length === 0) {
+                        Swal.fire({
+                            icon: "info",
+                            title: "No Selection",
+                            text: "Please select at least one transaction to delete."
+                        });
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "The selected transactions will be permanently deleted!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete them!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var url = '@Url.Action("DeleteSelected", "Transaction")' + '?ids=' + selectedIds.join(",");
+                            window.location.href = url;
+                        }
+                    });
+                });
+            });
         </script>
+
 
     }
     else

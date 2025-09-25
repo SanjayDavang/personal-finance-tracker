@@ -45,17 +45,17 @@ namespace Personal_Finance_Tracker.Controllers
             return Ok(budgets);
         }
 
-        [HttpPost]
-        [Route("GenerateMonthlyBudgets")]
-        [Authorize]
-        public async Task<IActionResult> GenerateMonthlyBudgets(string userName)
-        {
-            var user = await _userService.GetUserByUsernameAsync(userName);
-            if (user == null) return Unauthorized();
+        //[HttpPost]
+        //[Route("GenerateMonthlyBudgets")]
+        //[Authorize]
+        //public async Task<IActionResult> GenerateMonthlyBudgets(string userName)
+        //{
+        //    var user = await _userService.GetUserByUsernameAsync(userName);
+        //    if (user == null) return Unauthorized();
 
-            await _budgetService.CreateNewMonthBudgetsAsync(user.User_Id);
-            return Ok("Monthly budgets created.");
-        }
+        //    await _budgetService.UpdateBudgetsForNewMonthAsync(user.User_Id);
+        //    return Ok("Monthly budgets created.");
+        //}
 
         [HttpGet]
         [Route("GetBudget")]

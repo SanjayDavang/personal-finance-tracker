@@ -101,16 +101,21 @@ namespace PersonalFinanceTracker.Core.Services
             return await _transactionRepository.GetByIdAsync(transactionId);
         }
 
-        public async Task<bool> DeleteTransactionAsync(int TransactionId)
-        {
-            var transaction = await _transactionRepository.GetByIdAsync(TransactionId);
-            if (transaction == null)
-            {
-                return false;
-            }
+        //public async Task<bool> DeleteTransactionAsync(int TransactionId)
+        //{
+        //    var transaction = await _transactionRepository.GetByIdAsync(TransactionId);
+        //    if (transaction == null)
+        //    {
+        //        return false;
+        //    }
 
-            await _transactionRepository.DeleteAsync(transaction);
-            return true;
+        //    await _transactionRepository.DeleteAsync(transaction);
+        //    return true;
+        //}
+
+        public async Task<bool> DeleteTransactionsAsync(List<int> transactionIds)
+        {
+            return await _transactionRepository.DeleteTransactionsAsync(transactionIds);
         }
 
         public async Task<bool> UpdateTransactionAsync(TransactionResponseDto transactionDto, string userName)
