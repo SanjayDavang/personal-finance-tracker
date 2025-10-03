@@ -7,15 +7,49 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\AddBudgetDto.cs" />
+    <Compile Remove="Models\Budget.cs" />
+    <Compile Remove="Models\BudgetResponseDto.cs" />
+    <Compile Remove="Models\Category.cs" />
+    <Compile Remove="Models\CategoryBudgetResponseDto.cs" />
+    <Compile Remove="Models\CategoryDto.cs" />
+    <Compile Remove="Models\CategoryResponseDto.cs" />
+    <Compile Remove="Models\DashboardViewModel.cs" />
+    <Compile Remove="Models\OperationResultDto.cs" />
+    <Compile Remove="Models\ReportDto.cs" />
+    <Compile Remove="Models\Transaction.cs" />
+    <Compile Remove="Models\TransactionDto.cs" />
+    <Compile Remove="Models\TransactionResponseDto.cs" />
+    <Compile Remove="Models\UpdateBudgateDto.cs" />
+    <Compile Remove="Models\UpdateCategoryDto.cs" />
+    <Compile Remove="Models\User.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Budget\_OverspendCategories.cshtml" />
     <Content Remove="Views\Category\GetAll.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Dashboard\_OverbudgetPartial.cshtml" />
     <None Include="wwwroot\images\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PersonalFinanceTracker.Core\PersonalFinanceTracker.Core.csproj" />
+    <ProjectReference Include="..\PersonalFinanceTracker.Infrastructure\PersonalFinanceTracker.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Budget\_OverspendCategories.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Budget\_OverspendCategories.cshtml" />
   </ItemGroup>
 
 </Project>

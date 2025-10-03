@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
-using PersonalFinanceTracker.UI.Models;
 
 namespace Personal_Finance_Tracker.Controllers
 {

@@ -11,6 +11,7 @@ namespace PersonalFinanceTracker.Core.Interfaces
         Task<List<BudgetResponseDto>> GetAllBudgetsAsync(int userId);
         Task UpdateBudgetsForNewMonthAsync(int userId);
         Task<Budget> GetBudgetAsync(int CategoryId);
+        Task<List<BudgetStatusDto>> GetAllBudgetStatusAsync(int UserId);
         Task<ServiceResponse<bool>> UpdateBudgetAsync(UpdateBudgetDto updateBudgetDto);
     }
 }

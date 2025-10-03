@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalFinanceTracker.UI.Models;
+using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Core.DTOs;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using static System.Net.WebRequestMethods;
 
 namespace PersonalFinanceTracker.UI.Controllers
 {
@@ -137,6 +137,21 @@ namespace PersonalFinanceTracker.UI.Controllers
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
                 var categories = JsonSerializer.Deserialize<List<CategoryBudgetResponseDto>>(jsonData, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                var budgetResponse = await _httpClient.GetAsync($"{_apiBaseUrl}/Budget/GetAllBudgetStatus?userName={userName}");
+
+                if (budgetResponse.IsSuccessStatusCode)
+                {
+                    var statusJsonData = await budgetResponse.Content.ReadAsStringAsync();
+                    var budgetStatus = JsonSerializer.Deserialize<List<BudgetStatusDto>>(statusJsonData, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ;
+
+                    foreach ( var category in categories)
+                    {
+                        var budget = budgetStatus.FirstOrDefault(s => s.Category_Id == category.Category_Id);
+                        category.Status = budget.Status;
+                        category.Overspend = budget.Overspend;
+                    }
+                }
                 return View(categories);
             }
             TempData["ErrorMessage"] = "Failed to load categories.";
@@ -212,7 +227,7 @@ namespace PersonalFinanceTracker.UI.Controllers
 
             if (categoryResponse.IsSuccessStatusCode)
             {
-                var budget = new UpdateBudgateDto
+                var budget = new UpdateBudgetDto
                 {
                     Category_Id = categoryBudgetResponseDto.Category_Id,
                     Amount = categoryBudgetResponseDto.Amount,

@@ -1,5 +1,5 @@
 ﻿@using Newtonsoft.Json
-@model DashboardViewModel
+@using PersonalFinanceTracker.Core.DTOs;
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -30,9 +30,9 @@
         <div class="col-md-2">
             <button type="submit" class="btn btn-primary mt-4">Apply Filter</button>
         </div>
-        <div class="col-md-3"></div>
-        <div class="col-md-2">
-            <a asp-action="AddTransaction" asp-controller="Transaction" class="btn btn-primary mt-4 blink-btn">+ Add Transaction</a>
+        @* <div class="col-md-1"></div> *@
+        <div id="overBudgetContainer" class="col-md-6 align-content-center">
+            @* <a asp-action="AddTransaction" asp-controller="Transaction" class="btn btn-primary mt-4 blink-btn">+ Add Transaction</a> *@
         </div>
     </div>
 </form>
@@ -114,6 +114,7 @@
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
     google.charts.load('current', { packages: ['corechart'] });
@@ -165,6 +166,15 @@
 
     document.getElementById("filterDropdown").addEventListener("change", function () {
         document.querySelectorAll(".custom-date").forEach(el => el.style.display = this.value === "Custom" ? "block" : "none");
+    });
+
+    function loadOverBudget() {
+        $("#overBudgetContainer").load("/Dashboard/OverBudgetPartial");
+    }
+
+    $(document).ready(function () {
+        loadOverBudget();
+        setInterval(loadOverBudget, 60000);
     });
 </script>
 

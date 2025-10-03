@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalFinanceTracker.UI.Models;
+using PersonalFinanceTracker.Core.DTOs;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;

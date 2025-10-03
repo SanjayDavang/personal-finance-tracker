@@ -1,0 +1,19 @@
+﻿@using PersonalFinanceTracker.Core.DTOs;
+@model List<BudgetStatusDto>
+
+@if (Model != null && Model.Any(c => c.Status == "Over Budget"))
+{
+    <marquee behavior="scroll" direction="left" class="text-danger fw-bold">
+        @foreach (var category in Model.Where(c => c.Status == "Over Budget"))
+        {
+            <span style="margin-right: 50px;">
+                @($"{category.Name} Category Overspent by : {category.Overspend:C}")
+            </span>
+        }
+    </marquee>
+}
+else
+{
+    <span class="text-success">No categories over budget.</span>
+}
+

@@ -14,8 +14,8 @@
     <PackageReference Include="QuestPDF" Version="2025.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\PersonalFinanceTracker.UI\PersonalFinanceTracker.UI.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

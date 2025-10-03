@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalFinanceTracker.UI.Models;
+using PersonalFinanceTracker.Core.DTOs;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using Personal_Finance_Tracker.Models;
 
 namespace PersonalFinanceTracker.UI.Controllers
 {

@@ -4,7 +4,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
-
 var apiBaseUrl = builder.Configuration["ApiBaseUrl"];
 builder.Services.AddHttpClient("ApiClient", client =>
 {

@@ -1,4 +1,4 @@
-﻿@model List<PersonalFinanceTracker.UI.Models.CategoryBudgetResponseDto>
+﻿@model List<PersonalFinanceTracker.Core.DTOs.CategoryBudgetResponseDto>
 
 @{
     ViewData["Title"] = "Category List";
@@ -57,10 +57,18 @@
                 <tbody>
                     @foreach (var category in Model)
                     {
-                        <tr>
+                        var rowClass = category.Status == "Over Budget" ? "table-danger" : "";
+                        <tr class="@rowClass">
                             <td data-label="Category Name">@category.Name</td>
                             <td data-lable="Type" class="@(category.Type == "Income" ? "text-success" : "text-danger")">@category.Type</td>
-                            <td data-label="Type">@category.Amount.ToString("C")</td>
+                            <td data-label="Type">@(category.Type == "Income" ? "NA" : @category.Amount.ToString("C"))
+                                @if(category.Status == "Over Budget")
+                    {
+                        <div style="font-size:small; color:red;">
+                            Exceeded the limit by <b>@category.Overspend.ToString("C")</b>;
+                        </div>
+                    }
+                            </td>
                             <td data-label="Type">@category.StartDate</td>
                             <td data-label="Type">@category.EndDate</td>
                             <td data-label="Actions">

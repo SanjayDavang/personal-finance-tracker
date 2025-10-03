@@ -50,6 +50,11 @@ namespace PersonalFinanceTracker.Core.Services
             return await _budgetRepository.GetBudgetAsync(categoryId);
         }
 
+        public async Task<List<BudgetStatusDto>> GetAllBudgetStatusAsync(int UserId)
+        {
+            return await _budgetRepository.GetAllBudgetStatusAsync(UserId);
+        }
+
         public async Task<ServiceResponse<bool>> UpdateBudgetAsync(UpdateBudgetDto updateBudget)
         {
             var response = new ServiceResponse<bool>();

@@ -42,6 +42,7 @@ namespace PersonalFinanceTracker.Infrastructure.Repositories
                       TransactionType = t.TransactionType,
                       CategoryName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(c.Name), 
                   })
+            .OrderByDescending(t => t.Date)
             .ToListAsync();
         }
 

@@ -53,6 +53,13 @@ body {
 .btn:hover {
     opacity: 0.8;
 }
+
+.table-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+
 /* Responsive Table */
 @media (max-width: 768px) {
     table, thead, tbody, th, td, tr {

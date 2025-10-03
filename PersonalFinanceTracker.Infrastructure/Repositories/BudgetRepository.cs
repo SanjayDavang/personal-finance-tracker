@@ -91,6 +91,28 @@ namespace PersonalFinanceTracker.Infrastructure.Repositories
                     .FirstAsync();
         }
 
+        public async Task<List<BudgetStatusDto>> GetAllBudgetStatusAsync(int UserId)
+        {
+            var result = await (from c in _context.Categories
+                          join b in _context.Budgets on c.Category_Id equals b.Category_Id
+                          let totalExpenses = _context.Transactions
+                                                      .Where(t => t.Category_Id == c.Category_Id 
+                                                      && t.TransactionType == "Expense"
+                                                      && DateOnly.FromDateTime(t.Date) >= b.StartDate
+                                                      && DateOnly.FromDateTime(t.Date) <= b.EndDate)
+                                                      .Sum(t => (decimal?)t.Amount) ?? 0
+                          select new BudgetStatusDto
+                          {
+                              Category_Id = c.Category_Id,
+                              Name = c.Name,
+                              Status = totalExpenses > b.Amount ? "Over Budget" : "Within Budget",
+                              Overspend = totalExpenses - b.Amount
+                          })
+              .ToListAsync();
+
+            return result;
+        }
+
         public async Task<bool> UpdateBudgetAsync(Budget budget)
         {
             _context.Budgets.Update(budget);
