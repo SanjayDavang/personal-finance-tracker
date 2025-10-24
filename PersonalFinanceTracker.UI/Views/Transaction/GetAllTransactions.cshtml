@@ -47,7 +47,7 @@
     @if (Model != null && Model.Count > 0)
     {
            <div class="table-container">
-            <table id="transactions" class="table table-hover table-responsive">
+            <table id="transactions" class="table table-sm table-hover table-responsive">
                 <thead>
                     <tr>
                         <th>@* <input type="checkbox" id="selectAll"/> *@</th>
@@ -95,10 +95,6 @@
             </table>
             <a id="deleteSelectedBottom" class="btn btn-danger text-decoration-none fw-bold mb-2 ms-3" style="display:none;"><i class="fas fa-trash fa-bounce"></i></a>
         </div>
-        
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
         <script>
             $(document).ready(function () {
