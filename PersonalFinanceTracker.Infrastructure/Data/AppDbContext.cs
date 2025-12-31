@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Core.Models;
 
-namespace Personal_Finance_Tracker.Data
+namespace PersonalFinanceTracker.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
@@ -13,6 +13,7 @@ namespace Personal_Finance_Tracker.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Budget> Budgets { get; set; }
+        public DbSet<MonthlyBudgetRun> MonthlyBudgetRuns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

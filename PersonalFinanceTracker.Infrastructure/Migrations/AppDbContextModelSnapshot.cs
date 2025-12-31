@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Personal_Finance_Tracker.Data;
+using PersonalFinanceTracker.Infrastructure.Data;
 
 #nullable disable
 
@@ -17,12 +17,12 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.14")
+                .HasAnnotation("ProductVersion", "8.0.22")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.Budget", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.Budget", b =>
                 {
                     b.Property<int>("Budget_Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
                     b.ToTable("Budgets");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.Category", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.Category", b =>
                 {
                     b.Property<int>("Category_Id")
                         .ValueGeneratedOnAdd()
@@ -80,7 +80,26 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.Transaction", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.MonthlyBudgetRun", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("LastRunDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MonthlyBudgetRuns");
+                });
+
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.Transaction", b =>
                 {
                     b.Property<int>("Transaction_Id")
                         .ValueGeneratedOnAdd()
@@ -117,7 +136,7 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.User", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.User", b =>
                 {
                     b.Property<int>("User_Id")
                         .ValueGeneratedOnAdd()
@@ -142,15 +161,15 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.Budget", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.Budget", b =>
                 {
-                    b.HasOne("Personal_Finance_Tracker.Models.Category", "Categories")
+                    b.HasOne("PersonalFinanceTracker.Core.Models.Category", "Categories")
                         .WithMany("Budgets")
                         .HasForeignKey("Category_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Personal_Finance_Tracker.Models.User", "Users")
+                    b.HasOne("PersonalFinanceTracker.Core.Models.User", "Users")
                         .WithMany("Budgets")
                         .HasForeignKey("User_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -161,9 +180,9 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.Category", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.Category", b =>
                 {
-                    b.HasOne("Personal_Finance_Tracker.Models.User", "Users")
+                    b.HasOne("PersonalFinanceTracker.Core.Models.User", "Users")
                         .WithMany("Categories")
                         .HasForeignKey("User_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -172,15 +191,15 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.Transaction", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.Transaction", b =>
                 {
-                    b.HasOne("Personal_Finance_Tracker.Models.Category", "Categories")
+                    b.HasOne("PersonalFinanceTracker.Core.Models.Category", "Categories")
                         .WithMany("Transactions")
                         .HasForeignKey("Category_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Personal_Finance_Tracker.Models.User", "Users")
+                    b.HasOne("PersonalFinanceTracker.Core.Models.User", "Users")
                         .WithMany("Transactions")
                         .HasForeignKey("User_Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -191,14 +210,14 @@ namespace PersonalFinanceTracker.Infrastructure.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.Category", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.Category", b =>
                 {
                     b.Navigation("Budgets");
 
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("Personal_Finance_Tracker.Models.User", b =>
+            modelBuilder.Entity("PersonalFinanceTracker.Core.Models.User", b =>
                 {
                     b.Navigation("Budgets");
 

@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Personal_Finance_Tracker.Data;
+using PersonalFinanceTracker.Infrastructure.Data;
 using Personal_Finance_Tracker.Jobs;
 using PersonalFinanceTracker.Core.Interfaces;
+using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.Services;
 using PersonalFinanceTracker.Infrastructure.Repositories;
 using System.Text;
@@ -27,6 +28,9 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBudgetService, BudgetService>();
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+builder.Services.AddScoped<IMonthlyBudgetRunRepository, MonthlyBudgetRunRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -47,6 +51,9 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection"), b => b.MigrationsAssembly("PersonalFinanceTracker.Infrastructure")));
+
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
 
 builder.Services.AddCors(options =>
 {

@@ -1,15 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Personal_Finance_Tracker.Data;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Infrastructure.Data;
 using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
 using PersonalFinanceTracker.Core.Models;
-using System;
-using System.Collections.Generic;
+using PersonalFinanceTracker.Core.Services;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PersonalFinanceTracker.Infrastructure.Repositories
 {
@@ -89,7 +84,7 @@ namespace PersonalFinanceTracker.Infrastructure.Repositories
 
         public async Task<List<int>> AddDefaultCategoriesAsync(int userId)
         {
-            var defaultCategories = DefaultCategories.GetDefaultCategories(userId);
+            var defaultCategories = DefaultCategoryService.GetDefaultCategories(userId);
             await _context.Categories.AddRangeAsync(defaultCategories);
             _context.SaveChanges();
             return defaultCategories.Select(c => c.Category_Id).ToList();

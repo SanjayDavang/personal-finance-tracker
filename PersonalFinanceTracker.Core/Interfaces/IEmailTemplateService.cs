@@ -1,4 +1,4 @@
-﻿using PersonalFinanceTracker.Core.Models;
+﻿using PersonalFinanceTracker.Core.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PersonalFinanceTracker.Core.Interfaces
 {
-    public interface IEmailService
+    public interface IEmailTemplateService
     {
-        Task SendEmailAsync(string to, string subject, string body);
+        Task<string> GetBudgetAlertBodyAsync(BudgetAlertEmailRequest request);
     }
 }

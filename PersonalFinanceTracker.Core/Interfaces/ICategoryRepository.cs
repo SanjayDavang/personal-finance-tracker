@@ -1,11 +1,5 @@
-﻿using Personal_Finance_Tracker.Models;
-using PersonalFinanceTracker.Core.DTOs;
+﻿using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PersonalFinanceTracker.Core.Interfaces
 {

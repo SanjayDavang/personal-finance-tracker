@@ -1,21 +1,19 @@
-﻿using Personal_Finance_Tracker.Models;
+﻿using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
-using PersonalFinanceTracker.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PersonalFinanceTracker.Core.Services
 {
     public class BudgetService : IBudgetService
     {
         private readonly IBudgetRepository _budgetRepository;
-        public BudgetService(IBudgetRepository budgetRepository) 
+        private readonly IUserService _userService;
+        private readonly ICategoryService _categoryService;
+        public BudgetService(IBudgetRepository budgetRepository, IUserService userService, ICategoryService categoryService) 
         {
             _budgetRepository = budgetRepository;
+            _userService = userService;
+            _categoryService = categoryService;
         }
         public async Task<bool> AddDefaultBudgetsAsync(int userId, List<int> categoryIds)
         {
@@ -40,9 +38,9 @@ namespace PersonalFinanceTracker.Core.Services
             return await _budgetRepository.GetAllBudgetsAsync(userId);
         }
 
-        public async Task UpdateBudgetsForNewMonthAsync(int userId)
+        public async Task UpdateBudgetsForNewMonthAsync(int userId, DateTime today)
         {
-            await _budgetRepository.UpdateMonthlyBudgetsAsync(userId);
+            await _budgetRepository.UpdateMonthlyBudgetsAsync(userId, today);
         }
 
         public async Task<Budget> GetBudgetAsync(int categoryId)
@@ -53,6 +51,13 @@ namespace PersonalFinanceTracker.Core.Services
         public async Task<List<BudgetStatusDto>> GetAllBudgetStatusAsync(int UserId)
         {
             return await _budgetRepository.GetAllBudgetStatusAsync(UserId);
+        }
+
+        public async Task<BudgetStatusResponse> GetBudgetStatusAsync(BudgetStatusRequest request)
+        {
+            var user = await _userService.GetUserByUsernameAsync(request.UserName);
+            var categoryId = await _categoryService.GetIdByCategoryAsync(request.Category, request.TransactionType, user.User_Id);
+            return await _budgetRepository.GetBudgetStatusAsync(user.User_Id, categoryId, request.Amount);
         }
 
         public async Task<ServiceResponse<bool>> UpdateBudgetAsync(UpdateBudgetDto updateBudget)

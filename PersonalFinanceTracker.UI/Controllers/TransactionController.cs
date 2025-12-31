@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalFinanceTracker.Core.DTOs;
 using System.Net.Http.Headers;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Core.Models;
 
 namespace PersonalFinanceTracker.UI.Controllers
 {
@@ -44,6 +43,40 @@ namespace PersonalFinanceTracker.UI.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                //=============> Check Budget Status <===============
+
+                var request = new BudgetStatusRequest
+                {
+                    UserName = userName,
+                    Category = transactionDto.Category,
+                    TransactionType = transactionDto.TransactionType,
+                    Amount = transactionDto.Amount
+                };
+
+                var budgetApi = $"{_apiBaseUrl}/Budget/GetBudgetStatus";
+                var requestJsonData = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+                var budgetStatusResponse = await _httpClient.PostAsync(budgetApi, requestJsonData);
+
+                if (budgetStatusResponse.IsSuccessStatusCode)
+                {
+                    var responseJsonData = await budgetStatusResponse.Content.ReadAsStringAsync();
+                    var status = JsonSerializer.Deserialize<BudgetStatusResponse>(responseJsonData, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (status.IsOverBudget)
+                    {
+                        var emailRequest = new
+                        {
+                            UserName = userName,
+                            Category = transactionDto.Category,
+                            Amount = transactionDto.Amount,
+                            OverAmount = status.OverAmount
+                        };
+                        var emailApi = $"{_apiBaseUrl}/Email/SendBudgetAlert";
+                        var emailJson = new StringContent(JsonSerializer.Serialize(emailRequest), Encoding.UTF8, "application/json");
+                        await _httpClient.PostAsync(emailApi, emailJson);
+                    }
+                }
+
                 ModelState.Clear();
                 TempData["SuccessMessage"] = "Transaction added successfully.";
                 return View();

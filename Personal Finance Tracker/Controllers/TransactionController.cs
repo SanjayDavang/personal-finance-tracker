@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
 using PersonalFinanceTracker.Core.Services;

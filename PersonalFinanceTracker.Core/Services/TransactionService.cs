@@ -1,4 +1,4 @@
-﻿using Personal_Finance_Tracker.Models;
+﻿using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
 

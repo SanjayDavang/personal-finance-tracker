@@ -1,4 +1,4 @@
-﻿using Personal_Finance_Tracker.Models;
+﻿using PersonalFinanceTracker.Core.Models;
 
 namespace PersonalFinanceTracker.Core.Interfaces
 {

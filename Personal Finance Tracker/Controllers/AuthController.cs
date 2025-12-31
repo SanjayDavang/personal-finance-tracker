@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
 using PersonalFinanceTracker.Infrastructure.Repositories;

@@ -64,6 +64,15 @@ namespace Personal_Finance_Tracker.Controllers
             return Ok(budget);
         }
 
+        [HttpPost]
+        [Route("GetBudgetStatus")]
+        [Authorize]
+        public async Task<IActionResult> GetBudgetStatus(BudgetStatusRequest request)
+        {
+            var budget = await _budgetService.GetBudgetStatusAsync(request);
+            return Ok(budget);
+        }
+
         [HttpPut]
         [Route("UpdateBudget")]
         [Authorize]

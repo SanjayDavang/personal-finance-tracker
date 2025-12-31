@@ -1,8 +1,6 @@
-﻿using Personal_Finance_Tracker.Models;
+﻿using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using PersonalFinanceTracker.Core.Models;
 
 namespace PersonalFinanceTracker.Core.Services
 {
@@ -10,13 +8,11 @@ namespace PersonalFinanceTracker.Core.Services
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUserService _userService;
-        private readonly IBudgetService _budgetService;
 
-        public CategoryService(ICategoryRepository categoryRepository, IUserService userService, IBudgetService budgetService)
+        public CategoryService(ICategoryRepository categoryRepository, IUserService userService)
         {
             _categoryRepository = categoryRepository;
             _userService = userService;
-            _budgetService = budgetService;
         }
 
         public async Task<int> GetIdByCategoryAsync(string categoryName, string transactionType, int userId)

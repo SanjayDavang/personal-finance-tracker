@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Personal_Finance_Tracker.Data;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Infrastructure.Data;
+using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PersonalFinanceTracker.Infrastructure.Repositories
 {

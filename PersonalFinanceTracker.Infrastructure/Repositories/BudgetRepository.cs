@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Personal_Finance_Tracker.Data;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Infrastructure.Data;
+using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.DTOs;
 using PersonalFinanceTracker.Core.Interfaces;
 
@@ -60,9 +60,51 @@ namespace PersonalFinanceTracker.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task UpdateMonthlyBudgetsAsync(int userId)
+        public async Task<BudgetStatusResponse>GetBudgetStatusAsync(int UserId, int CategoryId, decimal Amount)
         {
-            var today = DateTime.UtcNow;
+            var budget = await _context.Budgets.FirstOrDefaultAsync(b => b.User_Id == UserId &&
+                                                                    b.Category_Id == CategoryId);
+            if (budget == null || budget.Amount == 0)
+            {
+                return new BudgetStatusResponse
+                {
+                    Category_Id = CategoryId,
+                    OverAmount = 0,
+                    IsOverBudget = false
+                };
+            }
+
+            var totalSpend = await _context.Transactions
+                .Where(t =>  t.User_Id == UserId 
+                && t.Category_Id == CategoryId 
+                && DateOnly.FromDateTime(t.Date) >= budget.StartDate
+                && DateOnly.FromDateTime(t.Date) <= budget.EndDate)
+                .SumAsync(t => t.Amount);
+
+
+            if(totalSpend > budget.Amount)
+            {
+                var overSpend = totalSpend - budget.Amount;
+
+                return new BudgetStatusResponse
+                {
+                    Category_Id = CategoryId,
+                    OverAmount = overSpend,
+                    IsOverBudget = true
+                };
+            }
+
+            return new BudgetStatusResponse
+            {
+                Category_Id = CategoryId,
+                OverAmount = 0, 
+                IsOverBudget = false                
+            };
+
+        }
+
+        public async Task UpdateMonthlyBudgetsAsync(int userId, DateTime today)
+        {
             var monthStart = new DateOnly(today.Year, today.Month, 1);
             var monthEnd = new DateOnly(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
 

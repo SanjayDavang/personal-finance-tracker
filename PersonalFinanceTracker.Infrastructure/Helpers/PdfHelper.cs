@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Core.Models;
 
 namespace PersonalFinanceTracker.Infrastructure.Helpers
 {

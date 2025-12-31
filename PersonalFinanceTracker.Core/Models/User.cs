@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Personal_Finance_Tracker.Models
+namespace PersonalFinanceTracker.Core.Models
 {
     public class User
     {

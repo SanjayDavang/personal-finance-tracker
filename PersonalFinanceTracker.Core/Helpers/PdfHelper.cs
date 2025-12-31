@@ -1,12 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Personal_Finance_Tracker.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PersonalFinanceTracker.Core.Models;
 
 namespace PersonalFinanceTracker.Infrastructure.Helpers
 {

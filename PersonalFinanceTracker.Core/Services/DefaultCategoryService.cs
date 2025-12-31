@@ -1,13 +1,8 @@
-﻿using Personal_Finance_Tracker.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PersonalFinanceTracker.Core.Models;
 
-namespace PersonalFinanceTracker.Core.Models
+namespace PersonalFinanceTracker.Core.Services
 {
-    public class DefaultCategories
+    public class DefaultCategoryService
     {
         public static List<Category> GetDefaultCategories(int userId)
         {

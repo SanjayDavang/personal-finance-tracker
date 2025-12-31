@@ -1,7 +1,7 @@
 ﻿using BCrypt.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Personal_Finance_Tracker.Models;
+using PersonalFinanceTracker.Core.Models;
 using PersonalFinanceTracker.Core.Interfaces;
 using System;
 using System.Collections.Generic;
