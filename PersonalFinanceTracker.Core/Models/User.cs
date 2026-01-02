@@ -13,5 +13,6 @@ namespace PersonalFinanceTracker.Core.Models
         public virtual ICollection<Transaction> Transactions { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

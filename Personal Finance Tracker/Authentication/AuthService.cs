@@ -37,6 +37,18 @@ namespace PersonalFinanceTracker.Core.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
 
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.User_Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+            };
+
+            foreach(var userRole in user.UserRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole.Role.RoleName));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, user.UserName) }),
@@ -66,11 +78,12 @@ namespace PersonalFinanceTracker.Core.Services
 
             var newUser = await _userService.AddUserAsync(user);
 
+            await _userService.AssignRoleAsync(newUser.User_Id, "User");
+
             var categoryIds = await _categoryService.AddDefaultCategoriesForUserAsync(newUser.User_Id);
             if(categoryIds == null) return false;
 
-            var isAdded = await _budgetService.AddDefaultBudgetsAsync(newUser.User_Id, categoryIds);
-            return isAdded;
+            return await _budgetService.AddDefaultBudgetsAsync(newUser.User_Id, categoryIds);
         }
     }
 }

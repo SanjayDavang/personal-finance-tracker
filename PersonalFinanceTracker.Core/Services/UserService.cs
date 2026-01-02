@@ -27,5 +27,10 @@ namespace PersonalFinanceTracker.Core.Services
         {
             return await _userRepository.AddAsync(user);
         }
+
+        public async Task AssignRoleAsync(int userId, string roleName)
+        {
+            await _userRepository.AssignRoleAsync(userId, roleName);
+        }
     }
 }

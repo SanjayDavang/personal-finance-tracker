@@ -8,5 +8,6 @@ namespace PersonalFinanceTracker.Core.Interfaces
         Task<User> GetByEmailAsync(string email);
         Task<User> AddAsync(User user);
         Task<List<User>> GetAllUsersAsync();
+        Task AssignRoleAsync(int userId, string roleName);
     }
 }
